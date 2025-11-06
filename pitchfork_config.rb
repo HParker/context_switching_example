@@ -18,8 +18,8 @@ end
 after_worker_ready do |server, worker|
   t = Thread.new do
     loop do
-      cpu_spin(BG_CPU_BLOCK_TIME)
-      sleep(BG_SLEEP_TIME)
+      cpu_spin($bg_time || 0.01)
+      sleep($bg_sleep || 0.1)
     end
   end
 end

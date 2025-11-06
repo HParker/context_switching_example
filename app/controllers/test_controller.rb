@@ -1,13 +1,19 @@
 class TestController < ApplicationController
   def index
-    ticks_remaining = Integer(RESPONSE_TIME_SECONDS/TICK_RATE_SECONDS)
+    response_time = params[:rt].to_f
+    tick_rate = params[:tr].to_f
+    cpu_ratio = params[:cpu].to_f
+    $bg_time = params[:bg_t].to_f
+    $bg_sleep = params[:bg_s].to_f
+
+    ticks_remaining = Integer(response_time/tick_rate)
 
     until ticks_remaining == 0
       case rand(0.0..1.0)
-      when (0.0..CPU_RATIO)
-        cpu_spin(TICK_RATE_SECONDS)
+      when (0.0..cpu_ratio)
+        cpu_spin(tick_rate)
       else
-        sleep(TICK_RATE_SECONDS)
+        sleep(tick_rate)
       end
       ticks_remaining -= 1
     end

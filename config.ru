@@ -1,4 +1,3 @@
-
 # Main thread Config
 IO_WAIT_RATIO = Float(ENV.fetch("IO_WAIT_RATIO") { 0.25 })
 CPU_RATIO = 1.0 - IO_WAIT_RATIO
@@ -9,12 +8,12 @@ TICK_RATE_SECONDS = Float(ENV.fetch("TICK_RATE_SECONDS") { 0.01 })
 BG_CPU_BLOCK_TIME = Float(ENV.fetch("BG_CPU_BLOCK_TIME") { 0.011 })
 BG_SLEEP_TIME = Float(ENV.fetch("BG_SLEEP_TIME") { 0.01 }) # 5 per request default
 
-puts "Testing with:"
-puts "#{CPU_RATIO * 100}% time spent waiting on CPU"
-puts "#{IO_WAIT_RATIO * 100}% time spent waiting on IO"
-puts "#{RESPONSE_TIME_SECONDS} seconds average response duration (approximate, not including GC)"
-puts "We will decide to do CPU or IO every #{TICK_RATE_SECONDS * 1000.0} milliseconds"
-puts "background thread block time: #{BG_CPU_BLOCK_TIME} sleep time: #{BG_SLEEP_TIME}"
+# puts "Testing with:"
+# puts "#{CPU_RATIO * 100}% time spent waiting on CPU"
+# puts "#{IO_WAIT_RATIO * 100}% time spent waiting on IO"
+# puts "#{RESPONSE_TIME_SECONDS} seconds average response duration (approximate, not including GC)"
+# puts "We will decide to do CPU or IO every #{TICK_RATE_SECONDS * 1000.0} milliseconds"
+# puts "background thread block time: #{BG_CPU_BLOCK_TIME} sleep time: #{BG_SLEEP_TIME}"
 
 def fibonacci(i)
   if i <= 1
@@ -42,29 +41,7 @@ def cpu_spin(seconds)
   end
 end
 
-# Background thread setup
-
-# def print_stats
-#   return if STATS.empty?
-#   STATS.sort!
-#   puts '-' * 40
-#   puts "Count:   #{STATS.size}"
-#   puts "Min:     #{to_ms(STATS.first)}"
-#   puts "Average: #{to_ms(STATS.sum / STATS.count)}"
-#   puts "Median:  #{to_ms(STATS[STATS.size / 2])}"
-#   puts "P75:     #{to_ms(STATS[(STATS.size * 0.75).floor])}"
-#   puts "P95:     #{to_ms(STATS[(STATS.size * 0.95).floor])}"
-#   puts "P99:     #{to_ms(STATS[(STATS.size * 0.99).floor])}"
-#   puts "P99.9:   #{to_ms(STATS[(STATS.size * 0.999).floor])}"
-#   puts "Max:     #{to_ms(STATS.last)}"
-# end
-
-# at_exit do
-#   print_stats
-# end
-
 # This file is used by Rack-based servers to start the application.
-
 require_relative "config/environment"
 
 run Rails.application
