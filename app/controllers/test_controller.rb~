@@ -1,0 +1,5 @@
+class TestController < ApplicationController
+  def index
+    plain "hi there!"
+  end
+end
